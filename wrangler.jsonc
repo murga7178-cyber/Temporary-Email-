@@ -1,0 +1,14 @@
+{
+  "name": "temporary-email",
+  "main": "index.js",
+  "compatibility_date": "2025-09-01",
+  "vars": {
+    "PNTR_DOMAIN": "masti.pntr.dev"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "SAVED",
+      "id": "यहाँ_अपनी_KV_नेमस्पेस_ID_डालें"
+    }
+  ]
+}
