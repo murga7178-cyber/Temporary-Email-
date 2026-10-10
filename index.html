@@ -3,10 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2563eb">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon.svg">
 <title>मेरे सेव किए ईमेल</title>
 <style>
-:root{--bg:#f6f6f7;--card:#fff;--tx:#111;--sub:#777;--line:#e6e6e8;--ic:#ececef;--ac:#2563eb;--ok:#dff5e6;--okt:#18803a}
-@media(prefers-color-scheme:dark){:root{--bg:#111;--card:#1c1c1e;--tx:#f2f2f2;--sub:#999;--line:#2c2c2e;--ic:#2c2c2e;--ok:#17331f;--okt:#6fd68a}}
+:root{--bg:#f6f6f7;--card:#fff;--tx:#111;--sub:#777;--line:#e6e6e8;--ic:#ececef;--ac:#2563eb;--ok:#dff5e6;--okt:#18803a;--old:#eee;--oldt:#666}
+@media(prefers-color-scheme:dark){:root{--bg:#111;--card:#1c1c1e;--tx:#f2f2f2;--sub:#999;--line:#2c2c2e;--ic:#2c2c2e;--ok:#17331f;--okt:#6fd68a;--old:#2c2c2e;--oldt:#aaa}}
 *{box-sizing:border-box}
 body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--tx);padding:16px;max-width:560px;margin:auto}
 h1{font-size:24px;margin:8px 0 14px}
@@ -14,47 +17,54 @@ h1{font-size:24px;margin:8px 0 14px}
 .row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer}
 .row:last-child{border-bottom:0}
 .ic{width:46px;height:46px;border-radius:14px;background:var(--ic);display:grid;place-items:center;font-size:22px;flex:none}
-.t{font-size:18px;font-weight:600}.s{font-size:14px;color:var(--sub);word-break:break-all}
+.t{font-size:19px;font-weight:600}.s{font-size:14px;color:var(--sub);word-break:break-all}
 .grow{flex:1;min-width:0}
-.badge{background:var(--ok);color:var(--okt);border-radius:12px;padding:4px 10px;font-size:13px}
+.badge{background:var(--ok);color:var(--okt);border-radius:12px;padding:3px 10px;font-size:12px;white-space:nowrap}
+.badge.old{background:var(--old);color:var(--oldt)}
 .x{background:none;border:0;color:var(--sub);font-size:20px;padding:6px}
-button.p{background:var(--ac);color:#fff;border:0;border-radius:14px;padding:12px 16px;font-size:16px;width:100%;margin-bottom:10px}
+button.p{background:var(--ac);color:#fff;border:0;border-radius:14px;padding:13px 16px;font-size:16px;width:100%;margin-bottom:10px}
 button.g{background:var(--ic);color:var(--tx);border:0;border-radius:12px;padding:10px 14px;font-size:15px}
-input{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:16px;margin:4px 0 10px}
+input{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:16px}
 .msg{padding:12px 0;border-bottom:1px solid var(--line)}.msg:last-child{border:0}
-.otp{display:inline-block;font-size:26px;letter-spacing:3px;font-weight:700;background:var(--ok);color:var(--okt);padding:4px 12px;border-radius:12px;margin:6px 8px 6px 0}
-.body{font-size:14px;color:var(--sub);white-space:pre-wrap;word-break:break-word;max-height:110px;overflow:auto}
+.otp{display:inline-block;font-size:28px;letter-spacing:3px;font-weight:700;background:var(--ok);color:var(--okt);padding:4px 12px;border-radius:12px;margin:6px 8px 6px 0}
+.otp.old{background:var(--old);color:var(--oldt)}
+.body{font-size:13px;color:var(--sub);word-break:break-word;max-height:80px;overflow:auto}
 .hide{display:none}.bar{display:flex;gap:8px;margin-bottom:10px}
 .note{font-size:13px;color:var(--sub);margin:6px 2px 14px}
+.form{padding:14px 16px}
 </style>
 </head>
 <body>
 
 <div id="login" class="hide">
   <h1>🔒 पासवर्ड डालें</h1>
-  <input id="pw" type="password" placeholder="ऐप का पासवर्ड" autocomplete="current-password">
+  <input id="pw" type="password" placeholder="ऐप का पासवर्ड" autocomplete="current-password" style="margin-bottom:10px">
   <button class="p" id="pwBtn">खोलें</button>
   <p class="note" id="pwErr"></p>
 </div>
 
 <div id="home" class="hide">
   <h1>मेरे सेव किए ईमेल</h1>
-  <button class="p" id="newBtn">🎲 नया रैंडम ईमेल बनाएँ और सेव करें</button>
-  <div class="bar">
-    <button class="g" id="addBtn">✍️ अपना पता जोड़ें</button>
-    <button class="g" id="outBtn">🚪 लॉगआउट</button>
+  <div class="card form">
+    <div class="bar">
+      <input id="fName" placeholder="नाम (जैसे फोन 4)" value="फोन 4">
+      <input id="fNum" placeholder="नंबर" inputmode="numeric" style="max-width:110px">
+    </div>
+    <button class="p" id="newBtn">🎲 नया रैंडम ईमेल बनाएँ और सेव करें</button>
+    <button class="g" id="addBtn" style="width:100%">✍️ अपना ईमेल पता जोड़ें</button>
   </div>
   <div class="card" id="list"></div>
   <p class="note" id="err"></p>
+  <div class="bar"><button class="g" id="outBtn">🚪 लॉगआउट</button></div>
 </div>
 
 <div id="inbox" class="hide">
   <div class="bar"><button class="g" id="back">← वापस</button><button class="g" id="copyAddr">पता कॉपी</button></div>
   <h1 id="inTitle"></h1>
-  <div class="s" id="inAddr" style="margin-bottom:10px"></div>
+  <div class="s" id="inAddr" style="margin-bottom:12px"></div>
   <button class="p" id="refresh">🔄 OTP दोबारा प्राप्त करें</button>
   <div class="card" id="msgs"></div>
-  <p class="note">मुफ्त प्लान में संदेश 48 घंटे बाद अपने-आप मिट जाते हैं।</p>
+  <p class="note">पहले प्राप्त किए गए OTP यहाँ सेव रहते हैं, भले ही PNTR से 48 घंटे बाद संदेश मिट जाए।</p>
 </div>
 
 <script>
@@ -72,8 +82,10 @@ async function api(path,opt={}){
   return j;
 }
 function rand(n){const c='abcdefghijklmnopqrstuvwxyz0123456789';const a=new Uint32Array(n);crypto.getRandomValues(a);return [...a].map(v=>c[v%c.length]).join('')}
+const nextNum=()=>items.reduce((m,x)=>Math.max(m,parseInt(x.num)||0),0)+1;
 
 function render(){
+  $('fNum').placeholder='नंबर '+nextNum();
   $('list').innerHTML=items.length?items.map(it=>`
     <div class="row" data-id="${esc(it.id)}">
       <div class="ic">✉️</div>
@@ -94,19 +106,17 @@ async function start(){
 $('pwBtn').onclick=()=>{key=$('pw').value;try{localStorage.setItem('k',key)}catch(e){};$('pwErr').textContent='';start()};
 $('outBtn').onclick=()=>{key='';try{localStorage.removeItem('k')}catch(e){};show('login')};
 
-async function addItem(addr,name){
-  try{items=await api('/api/items',{method:'POST',body:JSON.stringify({addr,name})});render();$('err').textContent=''}
-  catch(e){$('err').textContent=e.message}
+async function addItem(addr){
+  try{
+    items=await api('/api/items',{method:'POST',body:JSON.stringify({addr,name:$('fName').value.trim(),num:$('fNum').value.trim()})});
+    $('fNum').value='';render();$('err').textContent='';
+  }catch(e){$('err').textContent=e.message}
 }
-$('newBtn').onclick=()=>addItem(rand(10)+'@'+domain,'');
-$('addBtn').onclick=()=>{
-  const a=(prompt('ईमेल पता लिखें:')||'').trim();if(!a.includes('@'))return;
-  const n=(prompt('नाम (खाली छोड़ें तो "फोन")')||'').trim();
-  addItem(a,n);
-};
+$('newBtn').onclick=()=>addItem(rand(10)+'@'+domain);
+$('addBtn').onclick=()=>{const a=(prompt('ईमेल पता लिखें:')||'').trim();if(a.includes('@'))addItem(a)};
 $('list').onclick=async e=>{
   const d=e.target.closest('[data-d]');
-  if(d){if(confirm('यह ईमेल हटाएँ?')){items=await api('/api/items?id='+encodeURIComponent(d.dataset.d),{method:'DELETE'});render()}return}
+  if(d){if(confirm('यह ईमेल और उसके सेव OTP हटाएँ?')){items=await api('/api/items?id='+encodeURIComponent(d.dataset.d),{method:'DELETE'});render()}return}
   const r=e.target.closest('[data-id]');
   if(r){cur=items.find(x=>x.id===r.dataset.id);openInbox()}
 };
@@ -124,17 +134,17 @@ async function fetchMsgs(){
   const box=$('msgs');
   box.innerHTML='<div class="row" style="cursor:default"><div class="s">लोड हो रहा है…</div></div>';
   try{
-    const j=await api('/api/inbox?addr='+encodeURIComponent(cur.addr));
+    const j=await api('/api/inbox?id='+encodeURIComponent(cur.id)+'&addr='+encodeURIComponent(cur.addr));
     if(!j.messages.length){
-      box.innerHTML='<div class="row" style="cursor:default"><div class="s">इस पते का कोई संदेश नहीं मिला (इनबॉक्स में कुल '+esc(j.total)+')। थोड़ी देर बाद दोबारा रिफ्रेश करें।</div></div>';return}
+      box.innerHTML='<div class="row" style="cursor:default"><div class="s">अभी कोई OTP नहीं आया (इनबॉक्स में कुल '+esc(j.total)+' संदेश)।'+(j.warn?'<br>गड़बड़ी: '+esc(j.warn):'')+'<br>साइट पर OTP मँगवाकर "OTP दोबारा प्राप्त करें" दबाएँ।</div></div>';return}
     box.innerHTML=j.messages.map(m=>{
-      const plain=String(m.body).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
-      const found=(m.subject+' '+plain).match(/\b\d{4,8}\b/g)||[];
-      const otps=[...new Set(found)].map(o=>`<span class="otp" data-o="${esc(o)}">${esc(o)}</span>`).join('');
-      return `<div class="msg"><div class="t" style="font-size:16px">${esc(m.subject||'(बिना विषय)')}</div>
+      const otps=(m.otps||[]).map(o=>`<span class="otp ${m.isNew?'':'old'}" data-o="${esc(o)}">${esc(o)}</span>`).join('');
+      return `<div class="msg">
+        <div><span class="badge ${m.isNew?'':'old'}">${m.isNew?'नया प्राप्त':'पहले प्राप्त किया'}</span></div>
+        <div class="t" style="font-size:16px;margin-top:6px">${esc(m.subject||'(बिना विषय)')}</div>
         <div class="s">${esc(m.from)} ${m.date?'· '+esc(new Date(m.date).toLocaleString()):''}</div>
-        ${otps?`<div>${otps}<span class="s">(टैप करके कॉपी)</span></div>`:''}
-        <div class="body">${esc(plain.slice(0,600))}</div></div>`}).join('');
+        ${otps?`<div>${otps}<span class="s">टैप करके कॉपी</span></div>`:''}
+        <div class="body">${esc(m.snippet)}</div></div>`}).join('');
   }catch(e){box.innerHTML='<div class="row" style="cursor:default"><div class="s">गड़बड़ी: '+esc(e.message)+'</div></div>'}
 }
 $('msgs').onclick=e=>{const o=e.target.closest('[data-o]');if(o){navigator.clipboard?.writeText(o.dataset.o);o.style.opacity='.5'}};
